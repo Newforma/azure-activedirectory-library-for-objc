@@ -38,6 +38,8 @@
     NSString* _familyId;
     NSString* _accessToken;
     NSString* _accessTokenType;
+    NSString* _code;
+    NSString* _idToken;
     NSString* _refreshToken;
     NSData* _sessionKey;
     NSDate* _expiresOn;
@@ -68,6 +70,10 @@
 @property (copy) NSString* accessToken;
 
 @property (copy) NSString* accessTokenType;
+
+@property (copy) NSString* code;
+
+@property (copy) NSString* idToken;
 
 @property (copy) NSString* refreshToken;
 

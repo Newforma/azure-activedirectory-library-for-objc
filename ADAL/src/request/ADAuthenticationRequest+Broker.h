@@ -21,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-typedef void(^ADAuthorizationCodeCallback)(NSString*, ADAuthenticationError*);
+typedef void(^ADAuthorizationCodeCallback)(NSString*, NSString*, ADAuthenticationError*);
 
 extern NSString* kAdalResumeDictionaryKey;
 

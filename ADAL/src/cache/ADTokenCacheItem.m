@@ -74,6 +74,8 @@
 	item->_familyId = [_familyId copyWithZone:zone];
     item->_accessToken = [_accessToken copyWithZone:zone];
     item->_accessTokenType = [_accessTokenType copyWithZone:zone];
+    item->_code = [_code copyWithZone:zone];
+    item->_idToken = [_idToken copyWithZone:zone];
     item->_refreshToken = [_refreshToken copyWithZone:zone];
     item->_expiresOn = [_expiresOn copyWithZone:zone];
     item->_userInformation = [_userInformation copyWithZone:zone];
@@ -152,6 +154,8 @@
 	[aCoder encodeObject:_familyId forKey:@"familyId"];
     [aCoder encodeObject:_accessToken forKey:@"accessToken"];
     [aCoder encodeObject:_accessTokenType forKey:@"accessTokenType"];
+    [aCoder encodeObject:_code forKey:@"code"];
+    [aCoder encodeObject:_idToken forKey:@"idToken"];
     [aCoder encodeObject:_refreshToken forKey:@"refreshToken"];
     [aCoder encodeObject:_sessionKey forKey:@"sessionKey"];
     [aCoder encodeObject:_expiresOn forKey:@"expiresOn"];

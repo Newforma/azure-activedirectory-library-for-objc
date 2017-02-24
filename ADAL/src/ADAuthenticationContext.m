@@ -30,7 +30,7 @@
 
 #import "ADAuthenticationContext+Internal.h"
 
-typedef void(^ADAuthorizationCodeCallback)(NSString*, ADAuthenticationError*);
+typedef void(^ADAuthorizationCodeCallback)(NSString*, NSString*, ADAuthenticationError*);
 
 // This variable is purposefully a global so that way we can more easily pull it out of the
 // symbols in a binary to detect what version of ADAL is being used without needing to

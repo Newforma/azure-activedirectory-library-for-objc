@@ -159,13 +159,14 @@
     
     AD_LOG_VERBOSE_F(@"Requesting authorization code.", _correlationId, @"Requesting authorization code for resource: %@", _resource);
     
-    NSString* startUrl = [self generateQueryStringForRequestType:OAUTH2_CODE];
+    NSString* startUrl = [self generateQueryStringForRequestType:[NSString stringWithFormat:@"%@%%20%@", OAUTH2_CODE, OAUTH2_ID_TOKEN]];
     
     void(^requestCompletion)(ADAuthenticationError *error, NSURL *end) = ^void(ADAuthenticationError *error, NSURL *end)
     {
         [ADAuthenticationRequest releaseExclusionLock]; // Allow other operations that use the UI for credentials.
          
          NSString* code = nil;
+         NSString* idToken = nil;
          if (!error)
          {
              
@@ -208,6 +209,7 @@
                      //Note that we do not enforce the state, just log it:
                      [self verifyStateFromDictionary:parameters];
                      code = [parameters objectForKey:OAUTH2_CODE];
+                     idToken = [parameters objectForKey:OAUTH2_ID_TOKEN];
                      if ([NSString adIsStringNilOrBlank:code])
                      {
                          error = [ADAuthenticationError errorFromAuthenticationError:AD_ERROR_SERVER_AUTHORIZATION_CODE
@@ -219,7 +221,7 @@
              }
          }
          
-         completionBlock(code, error);
+         completionBlock(code, idToken, error);
      };
     
     // If this request doesn't allow us to attempt to grab a code silently (using

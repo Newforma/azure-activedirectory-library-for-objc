@@ -198,7 +198,7 @@
     __block BOOL silentRequest = _allowSilent;
     
 // Get the code first:
-    [self requestCode:^(NSString * code, ADAuthenticationError *error)
+    [self requestCode:^(NSString * code, NSString * idToken, ADAuthenticationError *error)
      {
          if (error)
          {
@@ -221,16 +221,26 @@
              }
              else
              {
-                 [self requestTokenByCode:code
-                          completionBlock:^(ADAuthenticationResult *result)
-                  {
-                      if (AD_SUCCEEDED == result.status)
+                 if (idToken != nil) {
+                     ADTokenCacheItem* item = [ADTokenCacheItem new];
+                     item.code = code;
+                     item.idToken = idToken;
+                     
+                     ADAuthenticationResult* result = [ADAuthenticationResult resultFromTokenCacheItem:item multiResourceRefreshToken:NO correlationId:nil];
+                     
+                     completionBlock(result);
+                 } else {
+                     [self requestTokenByCode:code
+                              completionBlock:^(ADAuthenticationResult *result)
                       {
-                          [_tokenCache updateCacheToResult:result cacheItem:nil refreshToken:nil correlationId:_correlationId];
-                          result = [ADAuthenticationContext updateResult:result toUser:_identifier];
-                      }
-                      completionBlock(result);
-                  }];
+                          if (AD_SUCCEEDED == result.status)
+                          {
+                              [_tokenCache updateCacheToResult:result cacheItem:nil refreshToken:nil correlationId:_correlationId];
+                              result = [ADAuthenticationContext updateResult:result toUser:_identifier];
+                          }
+                          completionBlock(result);
+                      }];
+                 }
              }
          }
      }];

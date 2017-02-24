@@ -62,6 +62,10 @@ typedef enum
  case of error.*/
 @property (readonly) NSString* accessToken;
 
+@property (readonly) NSString* code;
+
+@property (readonly) NSString* idToken;
+
 @property (readonly) ADTokenCacheItem* tokenCacheItem;
 
 /*! The error that occurred or nil, if the operation was successful */

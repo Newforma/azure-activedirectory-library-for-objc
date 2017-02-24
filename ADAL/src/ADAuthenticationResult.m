@@ -58,6 +58,16 @@
     return self.tokenCacheItem.accessToken;
 }
 
+- (NSString*)code
+{
+    return self.tokenCacheItem.code;
+}
+
+- (NSString*)idToken
+{
+    return self.tokenCacheItem.idToken;
+}
+
 #define STATUS_ENUM_CASE(_enum) case _enum: return @#_enum;
 
 + (NSString*)stringForResultStatus:(ADAuthenticationResultStatus)status
